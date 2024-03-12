@@ -6,8 +6,11 @@ import { RegisterDto } from "./dto/register.dto";
 import { AuthService } from "./auth.service";
 import { Roles } from "./decorators/roles.decorator";
 import { RolesGuard } from "./guard/roles.guard";
-import { Role } from "./enums/role.enum";
+import { Role } from "../common/enums/role.enum";
 import { Auth } from "./decorators/auth.decorators";
+import { ActiveUser } from "src/common/decorators/active-user.decorator";
+import { User } from "src/users/entities/user.entity";
+import { ActiveUserInterface } from "src/common/interfaces/active-user.interface";
 
 interface RequestWithUser extends Request {
   user: { email: string; role: string };
@@ -31,7 +34,8 @@ export class AuthController {
 
     @Get('profile')
     @Auth(Role.ADMIN)
-    profile(@Request() req: RequestWithUser) {
-      return this.authService.profile(req.user);
+    profile(@ActiveUser() user: ActiveUserInterface) {
+      console.log(user)
+      return this.authService.profile(user);
     }
 }

@@ -3,6 +3,8 @@
 /node_modules
 /build
 mysql
+postgres
+.env
 # Logs
 logs
 *.log

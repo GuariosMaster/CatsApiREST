@@ -5,6 +5,7 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./entities/user.entity";
 
+
 @Injectable()
 export class UsersService {
   constructor(
@@ -20,8 +21,15 @@ export class UsersService {
     return await this.usersRepository.findOneBy({ email });
   }
 
+  findOneByEmailWithPassword(email: string) {
+    return this.usersRepository.findOne({
+      where: { email },
+      select: ['id', 'name', 'email', 'password', 'role'],
+    });
+  }
+
   findAll() {
-    return `This action returns all users`;
+    return this.usersRepository.find();
   }
 
   findOne(id: number) {
