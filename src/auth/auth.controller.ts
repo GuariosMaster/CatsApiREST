@@ -8,15 +8,13 @@ import { Roles } from "./decorators/roles.decorator";
 import { RolesGuard } from "./guard/roles.guard";
 import { Role } from "../common/enums/role.enum";
 import { Auth } from "./decorators/auth.decorators";
-import { ActiveUser } from "src/common/decorators/active-user.decorator";
-import { User } from "src/users/entities/user.entity";
+import { ActiveUser } from "../common/decorators/active-user.decorator";
 import { ActiveUserInterface } from "src/common/interfaces/active-user.interface";
+import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth } from "@nestjs/swagger";
 
-interface RequestWithUser extends Request {
-  user: { email: string; role: string };
-}
-
-
+@ApiTags('auth')
+@ApiBearerAuth()
 @Controller('auth')
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
